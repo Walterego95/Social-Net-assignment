@@ -3,6 +3,9 @@
 
 <p>A server-side application where users can share their thoughts, react, and add other users to a friends list.</p>
 
+<h2>video link</h2>
+<p>https://drive.google.com/file/d/1IKAcuphrd1bWafnYmBIYGzXV2QbwmdYT/view</p>
+
 <h2>built with</h2>
 JavaScript</br>
 Node.js</br>
