@@ -1,6 +1,6 @@
 const { User, Thought } = require('../models');
 
-//methods for user functions...
+//all the user functions will go here as methods
 const userController = {
 
   //get all users...
@@ -15,7 +15,7 @@ const userController = {
       });
   },
 
-  //get single user by id and thoughts/friends data...
+  //get single user by id...
   getUserById({ params }, res) {
     User.findOne({ _id: params.id })
       .populate({
@@ -24,7 +24,7 @@ const userController = {
       })
       .select('-__v')
       .then(dbUserData => {
-        //404 error...
+        //if no user found send 404...
         if (!dbUserData) {
           res.status(404).json({ message: 'No user found with this id!' });
           return;
@@ -45,7 +45,7 @@ const userController = {
   },
 
 
-  //update user info by id, also add runValidators...
+  //update user info by id...
   updateUser({ params, body }, res) {
     User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
       .then(dbUserData => {
@@ -59,16 +59,20 @@ const userController = {
   },
 
   //delete user by id...
+  deleteUser({ params }, res) {
     User.findOneAndDelete({ _id: params.id })
       .then(dbUserData => {
         if (!dbUserData) {
           res.status(404).json({ message: 'No user found with this id!' });
           return;
         }
+        
         User.updateMany(
+          
           {
             _id: { $in: dbUserData.friends }
           },
+          //remove the user
           {
             $pull: { friends: params.id }
           }
