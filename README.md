@@ -1,4 +1,3 @@
-# Social-Net-assignment
 <h1>Social Network Assignment</h1>
 
 
